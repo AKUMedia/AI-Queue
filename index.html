@@ -136,7 +136,7 @@
         <div class="text-xs text-slate-500">человек</div>
       </div>
       <div class="rounded-2xl border border-white/10 bg-panel p-4 sm:p-5">
-        <div class="text-[11px] uppercase tracking-wider text-slate-500">Отвечено сегодня</div>
+        <div class="text-[11px] uppercase tracking-wider text-slate-500">Отвечено за всё время</div>
         <div id="statDone" class="mt-2 text-3xl font-black text-white tabular-nums">—</div>
         <div class="text-xs text-slate-500">разборов</div>
       </div>
@@ -287,6 +287,66 @@
     </div>
   </section>
 
+  <!-- ══════════════════ БЕСПЛАТНАЯ ПОЛЬЗА (2 ГАЙДА) ══════════════════ -->
+  <section class="mt-14">
+    <h2 class="text-2xl sm:text-3xl font-black text-white text-center">Бесплатная польза</h2>
+    <p class="mt-2 text-center text-slate-400 text-sm">Забирай прямо сейчас — без регистрации и оплаты.</p>
+
+    <div class="mt-7 grid sm:grid-cols-2 gap-4">
+
+      <!-- Гайд 1 — ЗЕЛЁНЫЙ (в стиле сайта гайда) -->
+      <a href="https://akumedia.github.io/guide/" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-2xl border border-[#C8F800]/20 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1 hover:border-[#C8F800]/60"
+         style="--brand:#C8F800">
+        <div class="absolute -top-20 -right-16 w-56 h-56 rounded-full blur-3xl pointer-events-none
+                    opacity-25 transition-opacity duration-300 group-hover:opacity-50"
+             style="background:#C8F800"></div>
+        <div class="relative">
+          <span class="w-11 h-11 rounded-xl grid place-items-center border"
+                style="background:rgba(200,248,0,.12); border-color:rgba(200,248,0,.35)">
+            <i data-lucide="file-text" class="w-5 h-5" style="color:#C8F800"></i>
+          </span>
+          <span class="mt-4 inline-block text-[11px] font-bold uppercase tracking-wider" style="color:#C8F800">Гайд · PDF</span>
+          <h3 class="mt-1 text-lg font-bold text-white">Нейросети для работы и жизни</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            Базовый гайд по ИИ: какие модели под какие задачи, готовые промпты и рабочие связки для ежедневных дел.
+          </p>
+          <span class="mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-ink
+                       transition-transform group-hover:translate-x-0.5"
+                style="background:#C8F800; box-shadow:0 8px 30px -10px rgba(200,248,0,.8)">
+            <i data-lucide="download" class="w-4 h-4"></i> Открыть гайд
+          </span>
+        </div>
+      </a>
+
+      <!-- Гайд 2 — ОРАНЖЕВЫЙ (в стиле сайта гайда) -->
+      <a href="https://akumedia.github.io/AKU-Jobs-Guide/" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-2xl border border-[#FF9F0A]/20 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1 hover:border-[#FF9F0A]/60">
+        <div class="absolute -top-20 -right-16 w-56 h-56 rounded-full blur-3xl pointer-events-none
+                    opacity-25 transition-opacity duration-300 group-hover:opacity-50"
+             style="background:#FF9F0A"></div>
+        <div class="relative">
+          <span class="w-11 h-11 rounded-xl grid place-items-center border"
+                style="background:rgba(255,159,10,.12); border-color:rgba(255,159,10,.35)">
+            <i data-lucide="briefcase" class="w-5 h-5" style="color:#FF9F0A"></i>
+          </span>
+          <span class="mt-4 inline-block text-[11px] font-bold uppercase tracking-wider" style="color:#FF9F0A">Гайд · AKU Jobs</span>
+          <h3 class="mt-1 text-lg font-bold text-white">Как найти работу и заказы с ИИ</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            Разбор, как собрать резюме и отклики через нейросети, где брать заказы и как выйти на первые деньги.
+          </p>
+          <span class="mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-ink
+                       transition-transform group-hover:translate-x-0.5"
+                style="background:#FF9F0A; box-shadow:0 8px 30px -10px rgba(255,159,10,.8)">
+            <i data-lucide="download" class="w-4 h-4"></i> Открыть гайд
+          </span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- ══════════════════ ЛИСТ ОЖИДАНИЯ ОБУЧЕНИЯ ══════════════════ -->
   <section class="mt-14">
     <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 sm:p-9">
@@ -311,43 +371,87 @@
     </div>
   </section>
 
-  <!-- ══════════════════ БЕСПЛАТНАЯ ПОЛЬЗА ══════════════════ -->
+  <!-- ══════════════════ МОИ ПРОЕКТЫ (экосистема AKU) ══════════════════ -->
   <section class="mt-14">
-    <h2 class="text-2xl sm:text-3xl font-black text-white text-center">Бесплатная польза</h2>
-    <p class="mt-2 text-center text-slate-400 text-sm">Забирай прямо сейчас, без регистрации и оплаты.</p>
+    <h2 class="text-2xl sm:text-3xl font-black text-white text-center">Мои проекты</h2>
+    <p class="mt-2 text-center text-slate-400 text-sm">Экосистема AKU — контент, автоматизация и работа с ИИ.</p>
 
-    <div class="mt-7 grid sm:grid-cols-2 gap-4">
-      <!-- Гайд 1 -->
-      <div class="group rounded-2xl border border-white/10 bg-panel p-6 transition hover:border-neon/40">
-        <span class="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 grid place-items-center">
-          <i data-lucide="file-text" class="w-5 h-5 text-neon"></i>
-        </span>
-        <h3 class="mt-4 text-lg font-bold text-white">Гайд: 50 промптов для работы</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
-          Готовые шаблоны запросов под тексты, аналитику, код и переписку. Копируй и вставляй.
-        </p>
-        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
-           class="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-ink px-4 py-2.5 text-sm font-semibold text-white
-                  transition group-hover:border-neon/50 group-hover:text-neon">
-          <i data-lucide="download" class="w-4 h-4"></i> Скачать бесплатно
-        </a>
-      </div>
+    <div class="mt-7 grid sm:grid-cols-3 gap-4">
 
-      <!-- Гайд 2 -->
-      <div class="group rounded-2xl border border-white/10 bg-panel p-6 transition hover:border-neon/40">
-        <span class="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 grid place-items-center">
-          <i data-lucide="bot" class="w-5 h-5 text-neon"></i>
-        </span>
-        <h3 class="mt-4 text-lg font-bold text-white">Мини-курс: автоматизация на ИИ</h3>
-        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
-          Пошаговый разбор, как собрать первого рабочего помощника под свои задачи за вечер.
-        </p>
-        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
-           class="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-ink px-4 py-2.5 text-sm font-semibold text-white
-                  transition group-hover:border-neon/50 group-hover:text-neon">
-          <i data-lucide="download" class="w-4 h-4"></i> Скачать бесплатно
-        </a>
-      </div>
+      <!-- AKU Media — синий #0052FF -->
+      <!-- TODO: подставить актуальную ссылку на лендинг AKU Media -->
+      <a href="#" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1"
+         onmouseover="this.style.borderColor='rgba(0,82,255,.6)'" onmouseout="this.style.borderColor=''">
+        <div class="absolute -top-20 -right-14 w-48 h-48 rounded-full blur-3xl pointer-events-none
+                    opacity-20 transition-opacity duration-300 group-hover:opacity-45"
+             style="background:#0052FF"></div>
+        <div class="relative">
+          <span class="w-11 h-11 rounded-xl grid place-items-center border"
+                style="background:rgba(0,82,255,.14); border-color:rgba(0,82,255,.4)">
+            <i data-lucide="clapperboard" class="w-5 h-5" style="color:#4D8CFF"></i>
+          </span>
+          <h3 class="mt-4 text-lg font-bold text-white">AKU Media</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            Продакшн контента на ИИ: креативы, монтаж, упаковка. 20M+ просмотров на проектах.
+          </p>
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-transform
+                       group-hover:translate-x-1" style="color:#4D8CFF">
+            Смотреть <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </span>
+        </div>
+      </a>
+
+      <!-- AKU Automation — красный #DB2022 -->
+      <!-- TODO: подставить актуальную ссылку на лендинг AKU Automation -->
+      <a href="#" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1"
+         onmouseover="this.style.borderColor='rgba(219,32,34,.6)'" onmouseout="this.style.borderColor=''">
+        <div class="absolute -top-20 -right-14 w-48 h-48 rounded-full blur-3xl pointer-events-none
+                    opacity-20 transition-opacity duration-300 group-hover:opacity-45"
+             style="background:#DB2022"></div>
+        <div class="relative">
+          <span class="w-11 h-11 rounded-xl grid place-items-center border"
+                style="background:rgba(219,32,34,.14); border-color:rgba(219,32,34,.4)">
+            <i data-lucide="cpu" class="w-5 h-5" style="color:#FF4B4D"></i>
+          </span>
+          <h3 class="mt-4 text-lg font-bold text-white">AKU Automation</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            Внедрение ИИ в бизнес: агенты, интеграции и автоматизация рутины под ключ.
+          </p>
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-transform
+                       group-hover:translate-x-1" style="color:#FF4B4D">
+            Смотреть <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </span>
+        </div>
+      </a>
+
+      <!-- AKU Jobs Hub — золотой #FF9F0A -->
+      <!-- TODO: подставить актуальную ссылку на AKU Jobs Hub -->
+      <a href="#" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1"
+         onmouseover="this.style.borderColor='rgba(255,159,10,.6)'" onmouseout="this.style.borderColor=''">
+        <div class="absolute -top-20 -right-14 w-48 h-48 rounded-full blur-3xl pointer-events-none
+                    opacity-20 transition-opacity duration-300 group-hover:opacity-45"
+             style="background:#FF9F0A"></div>
+        <div class="relative">
+          <span class="w-11 h-11 rounded-xl grid place-items-center border"
+                style="background:rgba(255,159,10,.14); border-color:rgba(255,159,10,.4)">
+            <i data-lucide="briefcase-business" class="w-5 h-5" style="color:#FF9F0A"></i>
+          </span>
+          <h3 class="mt-4 text-lg font-bold text-white">AKU Jobs Hub</h3>
+          <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+            Telegram Mini App: биржа заказов и вакансий для специалистов и заказчиков.
+          </p>
+          <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold transition-transform
+                       group-hover:translate-x-1" style="color:#FF9F0A">
+            Смотреть <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </span>
+        </div>
+      </a>
     </div>
   </section>
 </main>
@@ -362,10 +466,11 @@
         </span>
         <span class="font-extrabold text-white">AI<span class="text-neon">Queue</span></span>
       </div>
-      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
-        <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener" class="hover:text-neon transition">Telegram-канал</a>
-        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener" class="hover:text-neon transition">Бот</a>
-        <a href="https://t.me/hipnohop" target="_blank" rel="noopener" class="hover:text-neon transition">Связаться</a>
+      <nav class="flex items-center justify-center text-sm text-slate-400">
+        <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 hover:text-neon transition">
+          <i data-lucide="send" class="w-4 h-4"></i> Telegram-канал
+        </a>
       </nav>
     </div>
     <p class="mt-6 text-center sm:text-left text-xs text-slate-600">
@@ -390,7 +495,11 @@ const TELEGRAM_CHAT_ID   = '';   // ← ваш chat_id (узнать через 
 
 /* Базовые цифры для виджета статистики (пока нет бэкенда) */
 const BASE_QUEUE = 4;   // стартовое число людей в очереди
-const BASE_DONE  = 11;  // стартовое число отвеченных за сегодня
+
+/* Счётчик «Отвечено за всё время» */
+const LAUNCH_DATE     = new Date('2026-07-01').getTime(); // ← дата старта сервиса
+const BASE_DONE       = 118;  // сколько разборов было сделано до запуска счётчика
+const ANSWERS_PER_DAY = 9;    // средний темп разборов в сутки
 
 const MIN_PER_PERSON = 12;              // минут разбора на одного человека (дневной режим)
 const COOLDOWN_MS    = 24 * 60 * 60e3;  // антиспам: 24 часа
@@ -421,15 +530,43 @@ function currentQueueSize() {
   // Очередь растёт в течение дня и «рассасывается» ночью
   const h = new Date().getHours();
   const daytimeFactor = isNight() ? 1 : Math.max(0, Math.round((h - 8) / 3));
-  return BASE_QUEUE + (dailySeed() % 5) + daytimeFactor;
+  // Живое колебание: меняется примерно раз в минуту, диапазон 0..2
+  const jitter = Math.floor(Date.now() / 60000) % 3;
+  return BASE_QUEUE + (dailySeed() % 5) + daytimeFactor + jitter;
 }
-function currentDoneToday() {
+/* Счётчик «Отвечено за всё время».
+   Растёт от даты запуска и НИКОГДА не уменьшается: последнее значение
+   пишется в localStorage, при пересчёте берётся максимум. */
+function totalAnswered() {
+  const daysLive = Math.max(0, Math.floor((Date.now() - LAUNCH_DATE) / 86400e3));
   const h = new Date().getHours();
-  return BASE_DONE + (dailySeed() % 7) + Math.max(0, h - 9) * 2;
+  const today = isNight() ? ANSWERS_PER_DAY : Math.round(Math.max(0, h - 9) / 14 * ANSWERS_PER_DAY);
+
+  const computed = BASE_DONE + daysLive * ANSWERS_PER_DAY + today;
+  const stored = LS.get('total_answered') || 0;
+  const value = Math.max(computed, stored);
+  LS.set('total_answered', value);
+  return value;
 }
+
+/* Плавная анимация смены числа (count-up) */
+function animateNumber(el, to) {
+  const from = parseInt(el.textContent.replace(/\D/g, ''), 10);
+  if (isNaN(from) || from === to) { el.textContent = to; return; }
+
+  const steps = 18;
+  let i = 0;
+  clearInterval(el._anim);
+  el._anim = setInterval(() => {
+    i++;
+    el.textContent = Math.round(from + (to - from) * (i / steps));
+    if (i >= steps) { clearInterval(el._anim); el.textContent = to; }
+  }, 28);
+}
+
 function renderStats() {
-  $('#statQueue').textContent = currentQueueSize();
-  $('#statDone').textContent  = currentDoneToday();
+  animateNumber($('#statQueue'), currentQueueSize());
+  animateNumber($('#statDone'),  totalAnswered());
 }
 
 /* ═══════════════════ ТАБЫ СПОСОБА СВЯЗИ ═══════════════════ */
@@ -694,7 +831,7 @@ $('#questionForm').addEventListener('submit', async (e) => {
   $('#year').textContent = new Date().getFullYear();
   setChannel('Telegram');
   renderStats();
-  setInterval(renderStats, 60000); // обновление статистики раз в минуту
+  setInterval(renderStats, 20000); // обновление статистики каждые 20 сек
 
   // Если пользователь уже в очереди (в пределах 24 ч) — сразу показываем статус
   const last = LS.get('last_question_time');
