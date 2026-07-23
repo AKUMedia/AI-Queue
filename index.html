@@ -106,10 +106,10 @@
   <section class="pt-14 pb-10 text-center animate-floatUp">
     <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel px-3.5 py-1.5 text-xs text-slate-400 mb-6">
       <span class="relative flex w-2 h-2">
-        <span class="absolute inline-flex w-full h-full rounded-full bg-neon animate-pulseGlow"></span>
-        <span class="relative inline-flex w-2 h-2 rounded-full bg-neon"></span>
+        <span id="liveDot1" class="absolute inline-flex w-full h-full rounded-full bg-neon animate-pulseGlow"></span>
+        <span id="liveDot2" class="relative inline-flex w-2 h-2 rounded-full bg-neon"></span>
       </span>
-      Эксперт на связи • разбор бесплатно
+      <span id="liveBadge">Эксперт на связи • разбор бесплатно</span>
     </div>
 
     <h1 class="text-3xl sm:text-5xl font-black leading-[1.1] tracking-tight text-white">
@@ -119,8 +119,42 @@
 
     <p class="mt-5 text-slate-400 max-w-2xl mx-auto text-[15px] sm:text-base leading-relaxed">
       Это живая очередь. Ты оставляешь вопрос — он попадает в общий список и обрабатывается по порядку.
-      Когда доходит твоя очередь, детальный разбор прилетает лично в Telegram или WhatsApp. Один вопрос в сутки, без ботов и автоответов.
+      Когда доходит твоя очередь, детальный разбор прилетает лично в Telegram или WhatsApp.
+      Один вопрос в сутки, без ботов и автоответов.
     </p>
+
+    <!-- Три ключевых обещания сервиса -->
+    <div class="mt-7 grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
+      <div class="rounded-2xl border border-neon/25 bg-neon/[0.06] p-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="gift" class="w-4 h-4 text-neon shrink-0"></i>
+          <h3 class="font-bold text-white text-sm">Полностью бесплатно</h3>
+        </div>
+        <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+          Ноль рублей, никаких скрытых условий и оплат «за развёрнутый ответ». Совсем.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-panel p-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="user-round-check" class="w-4 h-4 text-neon shrink-0"></i>
+          <h3 class="font-bold text-white text-sm">Отвечает живой человек</h3>
+        </div>
+        <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+          Не бот и не шаблон. Я читаю каждый вопрос сам и разбираю именно твою ситуацию.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-panel p-4">
+        <div class="flex items-center gap-2">
+          <i data-lucide="moon-star" class="w-4 h-4 text-neon shrink-0"></i>
+          <h3 class="font-bold text-white text-sm">Ночью я сплю 😴</h3>
+        </div>
+        <p class="mt-2 text-xs text-slate-400 leading-relaxed">
+          С 23:00 до 09:00 очередь стоит на паузе. Твоё место сохранится — отвечу утром.
+        </p>
+      </div>
+    </div>
 
     <!-- Живой виджет статистики -->
     <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 max-w-md mx-auto">
@@ -320,26 +354,26 @@
         </div>
       </a>
 
-      <!-- Гайд 2 — ОРАНЖЕВЫЙ (в стиле сайта гайда) -->
+      <!-- Гайд 2 — КОРАЛЛОВО-КРАСНЫЙ (в стиле сайта гайда AKU Guide) -->
       <a href="https://akumedia.github.io/AKU-Jobs-Guide/" target="_blank" rel="noopener"
-         class="group relative overflow-hidden rounded-2xl border border-[#FF9F0A]/20 bg-panel p-6 block
-                transition-all duration-300 hover:-translate-y-1 hover:border-[#FF9F0A]/60">
+         class="group relative overflow-hidden rounded-2xl border border-[#FF4B2B]/20 bg-panel p-6 block
+                transition-all duration-300 hover:-translate-y-1 hover:border-[#FF4B2B]/60">
         <div class="absolute -top-20 -right-16 w-56 h-56 rounded-full blur-3xl pointer-events-none
                     opacity-25 transition-opacity duration-300 group-hover:opacity-50"
-             style="background:#FF9F0A"></div>
+             style="background:#FF4B2B"></div>
         <div class="relative">
           <span class="w-11 h-11 rounded-xl grid place-items-center border"
-                style="background:rgba(255,159,10,.12); border-color:rgba(255,159,10,.35)">
-            <i data-lucide="briefcase" class="w-5 h-5" style="color:#FF9F0A"></i>
+                style="background:rgba(255,75,43,.12); border-color:rgba(255,75,43,.35)">
+            <i data-lucide="briefcase" class="w-5 h-5" style="color:#FF4B2B"></i>
           </span>
-          <span class="mt-4 inline-block text-[11px] font-bold uppercase tracking-wider" style="color:#FF9F0A">Гайд · AKU Jobs</span>
+          <span class="mt-4 inline-block text-[11px] font-bold uppercase tracking-wider" style="color:#FF6A4D">Гайд · Бесплатно</span>
           <h3 class="mt-1 text-lg font-bold text-white">Где брать заказы в 2026</h3>
           <p class="mt-2 text-sm text-slate-400 leading-relaxed">
             10 каналов привлечения клиентов, которые реально работают сейчас — с разбором, кому какой подходит.
           </p>
-          <span class="mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-ink
+          <span class="mt-5 inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-bold text-white
                        transition-transform group-hover:translate-x-0.5"
-                style="background:#FF9F0A; box-shadow:0 8px 30px -10px rgba(255,159,10,.8)">
+                style="background:#FF4B2B; box-shadow:0 8px 30px -10px rgba(255,75,43,.8)">
             <i data-lucide="download" class="w-4 h-4"></i> Открыть гайд
           </span>
         </div>
@@ -630,6 +664,23 @@ function animateNumber(el, to) {
 function renderStats() {
   animateNumber($('#statQueue'), currentQueueSize());
   animateNumber($('#statDone'),  totalAnswered());
+  renderLiveBadge();
+}
+
+/* Плашка в шапке Hero: днём — «на связи», ночью — «спит» */
+function renderLiveBadge() {
+  const night = isNight();
+  $('#liveBadge').textContent = night
+    ? 'Эксперт спит 😴 • вопросы принимаются, отвечу утром'
+    : 'Эксперт на связи • разбор бесплатно';
+
+  // Ночью индикатор становится приглушённо-фиолетовым и перестаёт пульсировать
+  $('#liveDot1').className = night
+    ? 'absolute inline-flex w-full h-full rounded-full bg-indigo-400/60'
+    : 'absolute inline-flex w-full h-full rounded-full bg-neon animate-pulseGlow';
+  $('#liveDot2').className = night
+    ? 'relative inline-flex w-2 h-2 rounded-full bg-indigo-400'
+    : 'relative inline-flex w-2 h-2 rounded-full bg-neon';
 }
 
 /* ═══════════════════ ТАБЫ СПОСОБА СВЯЗИ ═══════════════════ */
