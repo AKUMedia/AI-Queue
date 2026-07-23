@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Queue — бесплатный разбор вопросов по ИИ</title>
+<meta name="description" content="Задай любой вопрос по ИИ и нейросетям — получи детальный разбор от эксперта бесплатно. Живая очередь." />
+
+<!-- Tailwind CSS через CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<!-- Шрифт Inter -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<script>
+  // Кастомная тема Tailwind
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink:    '#0D0E12',   // фон страницы
+          panel:  '#16181E',   // карточки
+          accent: '#3B82F6',   // электрический синий
+          neon:   '#00D2FF',   // неоново-голубой
+        },
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+        keyframes: {
+          pulseGlow: {
+            '0%,100%': { opacity: '1',   transform: 'scale(1)' },
+            '50%':     { opacity: '.45', transform: 'scale(1.35)' },
+          },
+          floatUp: {
+            '0%':   { opacity: '0', transform: 'translateY(18px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+        },
+        animation: {
+          pulseGlow: 'pulseGlow 1.8s ease-in-out infinite',
+          floatUp:   'floatUp .5s cubic-bezier(.22,1,.36,1) both',
+        },
+      },
+    },
+  };
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #0D0E12; }
+
+  /* Декоративное свечение фона */
+  .bg-aurora::before {
+    content: ''; position: fixed; inset: -20% -10% auto -10%; height: 60vh; z-index: -1;
+    background:
+      radial-gradient(closest-side, rgba(59,130,246,.20), transparent 70%) 20% 30%/55% 90% no-repeat,
+      radial-gradient(closest-side, rgba(0,210,255,.14), transparent 70%) 80% 10%/50% 80% no-repeat;
+    filter: blur(20px); pointer-events: none;
+  }
+
+  /* Неоновое свечение кнопок */
+  .glow      { box-shadow: 0 0 0 1px rgba(0,210,255,.25), 0 8px 30px -8px rgba(59,130,246,.65); }
+  .glow:hover{ box-shadow: 0 0 0 1px rgba(0,210,255,.45), 0 12px 40px -8px rgba(0,210,255,.75); }
+
+  /* Градиентный текст */
+  .grad-text {
+    background: linear-gradient(100deg,#fff 10%,#00D2FF 55%,#3B82F6 95%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+
+  /* Скрытие нативного файлового инпута */
+  input[type="file"] { display: none; }
+
+  /* Кастомный скроллбар для textarea */
+  textarea::-webkit-scrollbar { width: 6px; }
+  textarea::-webkit-scrollbar-thumb { background: #2b3040; border-radius: 99px; }
+</style>
+</head>
+
+<body class="bg-ink bg-aurora text-slate-200 font-sans antialiased selection:bg-neon/30">
+
+<!-- ══════════════════ HEADER ══════════════════ -->
+<header class="sticky top-0 z-40 backdrop-blur-xl bg-ink/70 border-b border-white/10">
+  <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2.5 group">
+      <span class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent to-neon grid place-items-center shadow-lg shadow-accent/30">
+        <i data-lucide="brain-circuit" class="w-5 h-5 text-ink"></i>
+      </span>
+      <span class="font-extrabold tracking-tight text-lg text-white">AI<span class="text-neon">Queue</span></span>
+    </a>
+
+    <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener"
+       class="glow inline-flex items-center gap-2 rounded-xl px-3.5 py-2 text-sm font-semibold
+              bg-gradient-to-r from-accent to-neon text-ink transition-all duration-300 hover:-translate-y-0.5">
+      <i data-lucide="send" class="w-4 h-4"></i>
+      <span class="hidden sm:inline">Telegram-канал</span>
+      <span class="sm:hidden">Канал</span>
+    </a>
+  </div>
+</header>
+
+<main class="max-w-5xl mx-auto px-4">
+
+  <!-- ══════════════════ HERO ══════════════════ -->
+  <section class="pt-14 pb-10 text-center animate-floatUp">
+    <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel px-3.5 py-1.5 text-xs text-slate-400 mb-6">
+      <span class="relative flex w-2 h-2">
+        <span class="absolute inline-flex w-full h-full rounded-full bg-neon animate-pulseGlow"></span>
+        <span class="relative inline-flex w-2 h-2 rounded-full bg-neon"></span>
+      </span>
+      Эксперт на связи • разбор бесплатно
+    </div>
+
+    <h1 class="text-3xl sm:text-5xl font-black leading-[1.1] tracking-tight text-white">
+      Задай любой вопрос по ИИ —<br class="hidden sm:block" />
+      <span class="grad-text">получи разбор от эксперта бесплатно</span>
+    </h1>
+
+    <p class="mt-5 text-slate-400 max-w-2xl mx-auto text-[15px] sm:text-base leading-relaxed">
+      Это живая очередь. Ты оставляешь вопрос — он попадает в общий список и обрабатывается по порядку.
+      Когда доходит твоя очередь, детальный разбор прилетает лично в Telegram или WhatsApp. Один вопрос в сутки, без ботов и автоответов.
+    </p>
+
+    <!-- Живой виджет статистики -->
+    <div class="mt-8 grid grid-cols-2 gap-3 sm:gap-4 max-w-md mx-auto">
+      <div class="rounded-2xl border border-white/10 bg-panel p-4 sm:p-5">
+        <div class="flex items-center justify-center gap-2 text-[11px] uppercase tracking-wider text-slate-500">
+          <span class="relative flex w-1.5 h-1.5">
+            <span class="absolute inline-flex w-full h-full rounded-full bg-neon animate-pulseGlow"></span>
+            <span class="relative inline-flex w-1.5 h-1.5 rounded-full bg-neon"></span>
+          </span>
+          Сейчас в очереди
+        </div>
+        <div id="statQueue" class="mt-2 text-3xl font-black text-white tabular-nums">—</div>
+        <div class="text-xs text-slate-500">человек</div>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-panel p-4 sm:p-5">
+        <div class="text-[11px] uppercase tracking-wider text-slate-500">Отвечено сегодня</div>
+        <div id="statDone" class="mt-2 text-3xl font-black text-white tabular-nums">—</div>
+        <div class="text-xs text-slate-500">разборов</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ ИНТЕРАКТИВНЫЙ БЛОК ══════════════════ -->
+  <section id="app" class="scroll-mt-20">
+
+    <!-- ───── СОСТОЯНИЕ А: ФОРМА ───── -->
+    <div id="viewForm" class="rounded-2xl border border-white/10 bg-panel p-5 sm:p-8">
+      <h2 class="text-xl sm:text-2xl font-bold text-white">Встать в очередь</h2>
+      <p class="mt-1.5 text-sm text-slate-400">Опиши задачу максимально конкретно — чем больше контекста, тем точнее разбор.</p>
+
+      <form id="questionForm" class="mt-6 space-y-5" novalidate>
+
+        <!-- Имя -->
+        <div>
+          <label for="fName" class="block text-sm font-medium text-slate-300 mb-2">Ваше имя</label>
+          <input id="fName" name="name" type="text" required maxlength="60" placeholder="Как к вам обращаться"
+                 class="w-full rounded-xl bg-ink border border-white/10 px-4 py-3 text-white placeholder-slate-600
+                        outline-none transition focus:border-neon/60 focus:ring-2 focus:ring-neon/20" />
+        </div>
+
+        <!-- Способ связи (табы) -->
+        <div>
+          <span class="block text-sm font-medium text-slate-300 mb-2">Куда прислать ответ</span>
+          <div class="grid grid-cols-2 gap-2 p-1 rounded-xl bg-ink border border-white/10">
+            <button type="button" data-channel="Telegram"
+                    class="channel-tab rounded-lg py-2.5 text-sm font-semibold transition-all flex items-center justify-center gap-2">
+              <i data-lucide="send" class="w-4 h-4"></i> Telegram
+            </button>
+            <button type="button" data-channel="WhatsApp"
+                    class="channel-tab rounded-lg py-2.5 text-sm font-semibold transition-all flex items-center justify-center gap-2">
+              <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+            </button>
+          </div>
+        </div>
+
+        <!-- Контакт -->
+        <div>
+          <label for="fContact" class="block text-sm font-medium text-slate-300 mb-2">
+            <span id="contactLabel">Ваш Telegram</span>
+          </label>
+          <input id="fContact" name="contact" type="text" required placeholder="@username"
+                 class="w-full rounded-xl bg-ink border border-white/10 px-4 py-3 text-white placeholder-slate-600
+                        outline-none transition focus:border-neon/60 focus:ring-2 focus:ring-neon/20" />
+          <p id="contactHint" class="mt-1.5 text-xs text-slate-500">Формат: @nickname</p>
+        </div>
+
+        <!-- Вопрос -->
+        <div>
+          <div class="flex items-baseline justify-between mb-2">
+            <label for="fQuestion" class="block text-sm font-medium text-slate-300">Ваш вопрос</label>
+            <span class="text-xs text-slate-500 tabular-nums"><span id="charCount">0</span> / 1000</span>
+          </div>
+          <textarea id="fQuestion" name="question" required rows="5" maxlength="1000"
+                    placeholder="Например: хочу автоматизировать заполнение договоров из таблицы — какой стек и с чего начать?"
+                    class="w-full rounded-xl bg-ink border border-white/10 px-4 py-3 text-white placeholder-slate-600 resize-y
+                           outline-none transition focus:border-neon/60 focus:ring-2 focus:ring-neon/20"></textarea>
+        </div>
+
+        <!-- Загрузка скриншота (drag & drop) -->
+        <div>
+          <span class="block text-sm font-medium text-slate-300 mb-2">Скриншот <span class="text-slate-500 font-normal">— необязательно</span></span>
+
+          <label id="dropZone" for="fFile"
+                 class="flex flex-col items-center justify-center gap-2 cursor-pointer rounded-xl border-2 border-dashed
+                        border-white/10 bg-ink px-4 py-7 text-center transition hover:border-neon/50 hover:bg-neon/5">
+            <i data-lucide="image-up" class="w-6 h-6 text-slate-500"></i>
+            <span class="text-sm text-slate-400">Перетащите файл или <span class="text-neon font-semibold">выберите</span></span>
+            <span class="text-xs text-slate-600">PNG, JPG, WEBP — до 5 МБ</span>
+          </label>
+          <input id="fFile" type="file" accept=".png,.jpg,.jpeg,.webp,image/png,image/jpeg,image/webp" />
+
+          <!-- Превью -->
+          <div id="preview" class="hidden mt-3 relative rounded-xl overflow-hidden border border-white/10 bg-ink">
+            <img id="previewImg" alt="Превью скриншота" class="w-full max-h-64 object-contain bg-black/40" />
+            <div class="flex items-center justify-between gap-3 px-3 py-2 text-xs text-slate-400">
+              <span id="previewName" class="truncate"></span>
+              <button type="button" id="removeFile"
+                      class="shrink-0 inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 bg-red-500/10 text-red-400 hover:bg-red-500/20 transition">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Удалить
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Ошибка -->
+        <p id="formError" class="hidden text-sm text-red-400 bg-red-500/10 border border-red-500/20 rounded-xl px-4 py-3"></p>
+
+        <!-- Отправка -->
+        <button type="submit" id="submitBtn"
+                class="glow w-full rounded-xl py-4 font-extrabold text-ink text-base
+                       bg-gradient-to-r from-accent to-neon transition-all duration-300
+                       hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0">
+          Встать в очередь 🚀
+        </button>
+        <p class="text-center text-xs text-slate-600">Один вопрос в сутки с одного устройства.</p>
+      </form>
+    </div>
+
+    <!-- ───── СОСТОЯНИЕ Б: ЭКРАН ОЖИДАНИЯ ───── -->
+    <div id="viewStatus" class="hidden rounded-2xl border border-white/10 bg-panel p-5 sm:p-8 text-center">
+      <div class="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-neon grid place-items-center shadow-lg shadow-accent/30">
+        <i data-lucide="check" class="w-7 h-7 text-ink"></i>
+      </div>
+
+      <h2 class="mt-5 text-xl sm:text-2xl font-bold text-white">Вы в очереди!</h2>
+      <p class="mt-1.5 text-sm text-slate-400">Ваш персональный номер</p>
+
+      <div class="mt-3 text-6xl sm:text-7xl font-black grad-text tabular-nums" id="queueNumber">#0</div>
+
+      <!-- Таймер / ночной режим -->
+      <div id="waitBox" class="mt-6 rounded-2xl border border-white/10 bg-ink p-5">
+        <div class="text-[11px] uppercase tracking-wider text-slate-500">Ориентировочное ожидание</div>
+        <div id="waitTime" class="mt-2 text-2xl font-bold text-white tabular-nums">—</div>
+        <div id="waitNote" class="mt-1.5 text-xs text-slate-500"></div>
+      </div>
+
+      <p class="mt-5 text-sm text-slate-400 flex items-center justify-center gap-2">
+        <i data-lucide="bell-ring" class="w-4 h-4 text-neon"></i>
+        Ответ с детальным разбором прилетит вам лично в <span id="statusChannel" class="text-white font-semibold">Telegram</span>
+      </p>
+
+      <!-- Пройти без очереди -->
+      <div class="mt-6 text-left">
+        <button type="button" id="fastpassToggle"
+                class="w-full flex items-center justify-between gap-3 rounded-xl border border-neon/25 bg-neon/[0.07] px-4 py-3.5
+                       text-left transition hover:bg-neon/[0.12]">
+          <span class="font-bold text-white">Пройти без очереди 🔥</span>
+          <i data-lucide="chevron-down" id="fastpassChevron" class="w-5 h-5 text-neon transition-transform"></i>
+        </button>
+        <div id="fastpassBody" class="hidden mt-2 rounded-xl border border-white/10 bg-ink p-4 text-sm text-slate-400 leading-relaxed">
+          Хочешь ответ быстрее? Подпишись на Telegram-канал и отправь секретный код
+          <code class="mx-1 rounded-md bg-panel border border-white/10 px-2 py-0.5 text-neon font-semibold">/fastpass</code>
+          в бота, чтобы получить приоритет.
+          <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener"
+             class="glow mt-4 flex items-center justify-center gap-2 rounded-xl py-3 font-bold text-ink
+                    bg-gradient-to-r from-accent to-neon transition-all hover:-translate-y-0.5">
+            <i data-lucide="zap" class="w-4 h-4"></i> Получить приоритет
+          </a>
+        </div>
+      </div>
+
+      <!-- Плашка антиспама -->
+      <p id="cooldownNote" class="mt-6 text-xs text-slate-600"></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ ЛИСТ ОЖИДАНИЯ ОБУЧЕНИЯ ══════════════════ -->
+  <section class="mt-14">
+    <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 sm:p-9">
+      <div class="absolute -top-24 -right-16 w-72 h-72 rounded-full bg-accent/20 blur-3xl pointer-events-none"></div>
+      <div class="relative">
+        <span class="inline-flex items-center gap-2 rounded-full border border-neon/30 bg-neon/10 px-3 py-1 text-xs font-semibold text-neon">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Скоро старт
+        </span>
+        <h2 class="mt-4 text-2xl sm:text-3xl font-black text-white leading-tight">
+          Лист ожидания: фундаментальное обучение по ИИ
+        </h2>
+        <p class="mt-3 text-slate-400 text-[15px] leading-relaxed max-w-2xl">
+          Полный курс по работе с нейросетями: от промптинга и агентов до сборки рабочих автоматизаций под свои задачи.
+          Запишись в лист ожидания — участники получают доступ первыми и по стартовой цене.
+        </p>
+        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
+           class="glow mt-6 inline-flex items-center gap-2 rounded-xl px-6 py-3.5 font-bold text-ink
+                  bg-gradient-to-r from-accent to-neon transition-all hover:-translate-y-0.5">
+          Записаться в лист ожидания <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ БЕСПЛАТНАЯ ПОЛЬЗА ══════════════════ -->
+  <section class="mt-14">
+    <h2 class="text-2xl sm:text-3xl font-black text-white text-center">Бесплатная польза</h2>
+    <p class="mt-2 text-center text-slate-400 text-sm">Забирай прямо сейчас, без регистрации и оплаты.</p>
+
+    <div class="mt-7 grid sm:grid-cols-2 gap-4">
+      <!-- Гайд 1 -->
+      <div class="group rounded-2xl border border-white/10 bg-panel p-6 transition hover:border-neon/40">
+        <span class="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 grid place-items-center">
+          <i data-lucide="file-text" class="w-5 h-5 text-neon"></i>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-white">Гайд: 50 промптов для работы</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Готовые шаблоны запросов под тексты, аналитику, код и переписку. Копируй и вставляй.
+        </p>
+        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
+           class="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-ink px-4 py-2.5 text-sm font-semibold text-white
+                  transition group-hover:border-neon/50 group-hover:text-neon">
+          <i data-lucide="download" class="w-4 h-4"></i> Скачать бесплатно
+        </a>
+      </div>
+
+      <!-- Гайд 2 -->
+      <div class="group rounded-2xl border border-white/10 bg-panel p-6 transition hover:border-neon/40">
+        <span class="w-11 h-11 rounded-xl bg-accent/15 border border-accent/25 grid place-items-center">
+          <i data-lucide="bot" class="w-5 h-5 text-neon"></i>
+        </span>
+        <h3 class="mt-4 text-lg font-bold text-white">Мини-курс: автоматизация на ИИ</h3>
+        <p class="mt-2 text-sm text-slate-400 leading-relaxed">
+          Пошаговый разбор, как собрать первого рабочего помощника под свои задачи за вечер.
+        </p>
+        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
+           class="mt-5 inline-flex items-center gap-2 rounded-xl border border-white/15 bg-ink px-4 py-2.5 text-sm font-semibold text-white
+                  transition group-hover:border-neon/50 group-hover:text-neon">
+          <i data-lucide="download" class="w-4 h-4"></i> Скачать бесплатно
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer class="mt-16 border-t border-white/10 bg-panel/40">
+  <div class="max-w-5xl mx-auto px-4 py-9">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-5">
+      <div class="flex items-center gap-2.5">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-neon grid place-items-center">
+          <i data-lucide="brain-circuit" class="w-4 h-4 text-ink"></i>
+        </span>
+        <span class="font-extrabold text-white">AI<span class="text-neon">Queue</span></span>
+      </div>
+      <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-slate-400">
+        <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener" class="hover:text-neon transition">Telegram-канал</a>
+        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener" class="hover:text-neon transition">Бот</a>
+        <a href="https://t.me/hipnohop" target="_blank" rel="noopener" class="hover:text-neon transition">Связаться</a>
+      </nav>
+    </div>
+    <p class="mt-6 text-center sm:text-left text-xs text-slate-600">
+      © <span id="year"></span> AI Queue — проект AKU. Все права защищены.
+    </p>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   НАСТРОЙКИ — ВСТАВЬТЕ СВОИ КЛЮЧИ ЗДЕСЬ
+   ═══════════════════════════════════════════════════════════════
+
+   ⚠️ ВАЖНО ПРО БЕЗОПАСНОСТЬ:
+   Токен бота в клиентском JS виден любому, кто откроет исходный код
+   страницы. Для боевого использования вынесите отправку на сервер
+   (или serverless-функцию / Cloudflare Worker) и вызывайте её отсюда.
+   Здесь оставлен прямой вызов Telegram Bot API — как в ТЗ.
+*/
+const TELEGRAM_BOT_TOKEN = '';   // ← токен от @BotFather, например '1234567890:AA...'
+const TELEGRAM_CHAT_ID   = '';   // ← ваш chat_id (узнать через @userinfobot)
+
+/* Базовые цифры для виджета статистики (пока нет бэкенда) */
+const BASE_QUEUE = 4;   // стартовое число людей в очереди
+const BASE_DONE  = 11;  // стартовое число отвеченных за сегодня
+
+const MIN_PER_PERSON = 12;              // минут разбора на одного человека (дневной режим)
+const COOLDOWN_MS    = 24 * 60 * 60e3;  // антиспам: 24 часа
+
+/* ═══════════════════ УТИЛИТЫ ═══════════════════ */
+const $ = (sel) => document.querySelector(sel);
+const LS = {
+  get: (k) => { try { return JSON.parse(localStorage.getItem(k)); } catch { return null; } },
+  set: (k, v) => localStorage.setItem(k, JSON.stringify(v)),
+};
+
+/* Ночной режим: с 23:00 до 09:00 эксперт отдыхает */
+const isNight = () => { const h = new Date().getHours(); return h >= 23 || h < 9; };
+
+/* Псевдослучайное, но стабильное в течение дня число — чтобы статистика
+   не «прыгала» при каждом обновлении страницы */
+function dailySeed() {
+  const d = new Date();
+  return (d.getFullYear() * 372 + d.getMonth() * 31 + d.getDate()) % 97;
+}
+
+/* ═══════════════════ СОСТОЯНИЕ ═══════════════════ */
+let selectedChannel = 'Telegram';
+let selectedFile = null;
+
+/* ═══════════════════ ВИДЖЕТ СТАТИСТИКИ ═══════════════════ */
+function currentQueueSize() {
+  // Очередь растёт в течение дня и «рассасывается» ночью
+  const h = new Date().getHours();
+  const daytimeFactor = isNight() ? 1 : Math.max(0, Math.round((h - 8) / 3));
+  return BASE_QUEUE + (dailySeed() % 5) + daytimeFactor;
+}
+function currentDoneToday() {
+  const h = new Date().getHours();
+  return BASE_DONE + (dailySeed() % 7) + Math.max(0, h - 9) * 2;
+}
+function renderStats() {
+  $('#statQueue').textContent = currentQueueSize();
+  $('#statDone').textContent  = currentDoneToday();
+}
+
+/* ═══════════════════ ТАБЫ СПОСОБА СВЯЗИ ═══════════════════ */
+const tabs = document.querySelectorAll('.channel-tab');
+
+function setChannel(channel) {
+  selectedChannel = channel;
+
+  tabs.forEach((tab) => {
+    const active = tab.dataset.channel === channel;
+    tab.classList.toggle('bg-gradient-to-r', active);
+    tab.classList.toggle('from-accent', active);
+    tab.classList.toggle('to-neon', active);
+    tab.classList.toggle('text-ink', active);
+    tab.classList.toggle('text-slate-400', !active);
+    tab.classList.toggle('hover:text-white', !active);
+  });
+
+  const isTg = channel === 'Telegram';
+  $('#contactLabel').textContent = isTg ? 'Ваш Telegram' : 'Ваш WhatsApp';
+  $('#fContact').placeholder     = isTg ? '@username' : '+7 900 000-00-00';
+  $('#contactHint').textContent  = isTg ? 'Формат: @nickname' : 'Номер в международном формате';
+  $('#fContact').type            = isTg ? 'text' : 'tel';
+}
+tabs.forEach((tab) => tab.addEventListener('click', () => setChannel(tab.dataset.channel)));
+
+/* ═══════════════════ СЧЁТЧИК СИМВОЛОВ ═══════════════════ */
+const questionField = $('#fQuestion');
+questionField.addEventListener('input', () => {
+  const len = questionField.value.length;
+  $('#charCount').textContent = len;
+  $('#charCount').className = len > 950 ? 'text-red-400' : '';
+});
+
+/* ═══════════════════ ЗАГРУЗКА ФАЙЛА ═══════════════════ */
+const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+const MAX_SIZE = 5 * 1024 * 1024; // 5 МБ
+
+const fileInput = $('#fFile');
+const dropZone  = $('#dropZone');
+
+function handleFile(file) {
+  if (!file) return;
+
+  if (!ALLOWED_TYPES.includes(file.type)) {
+    showError('Недопустимый формат файла. Разрешены только PNG, JPG и WEBP.');
+    return;
+  }
+  if (file.size > MAX_SIZE) {
+    showError('Файл больше 5 МБ. Сожмите скриншот и попробуйте снова.');
+    return;
+  }
+
+  selectedFile = file;
+  hideError();
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    $('#previewImg').src = e.target.result;
+    $('#previewName').textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} МБ`;
+    $('#preview').classList.remove('hidden');
+    dropZone.classList.add('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+$('#removeFile').addEventListener('click', () => {
+  selectedFile = null;
+  fileInput.value = '';
+  $('#preview').classList.add('hidden');
+  dropZone.classList.remove('hidden');
+});
+
+// Drag & drop
+['dragenter', 'dragover'].forEach((evt) =>
+  dropZone.addEventListener(evt, (e) => {
+    e.preventDefault();
+    dropZone.classList.add('border-neon/60', 'bg-neon/10');
+  })
+);
+['dragleave', 'drop'].forEach((evt) =>
+  dropZone.addEventListener(evt, (e) => {
+    e.preventDefault();
+    dropZone.classList.remove('border-neon/60', 'bg-neon/10');
+  })
+);
+dropZone.addEventListener('drop', (e) => handleFile(e.dataTransfer.files[0]));
+
+/* ═══════════════════ ОШИБКИ ═══════════════════ */
+function showError(msg) {
+  const el = $('#formError');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+function hideError() { $('#formError').classList.add('hidden'); }
+
+/* ═══════════════════ ОТПРАВКА В TELEGRAM ═══════════════════ */
+
+/** Текст сообщения для админа */
+function buildAdminMessage(data) {
+  return [
+    '🔥 НОВЫЙ ВОПРОС В ОЧЕРЕДИ 🔥',
+    `👤 Имя: ${data.name}`,
+    `📱 Связь: ${data.channel} (${data.contact})`,
+    `❓ Вопрос: ${data.question}`,
+    `⏳ Позиция в очереди: #${data.queueNumber}`,
+  ].join('\n');
+}
+
+/** Отправка текста через sendMessage */
+async function sendTelegramMessage(text) {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+    console.warn('Telegram не настроен: заполните TELEGRAM_BOT_TOKEN и TELEGRAM_CHAT_ID.');
+    return false;
+  }
+  const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text, disable_web_page_preview: true }),
+  });
+  return res.ok;
+}
+
+/** Отправка скриншота через sendPhoto (multipart/form-data) */
+async function sendTelegramPhoto(file, caption) {
+  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return false;
+
+  const fd = new FormData();
+  fd.append('chat_id', TELEGRAM_CHAT_ID);
+  fd.append('photo', file);
+  // caption в Telegram ограничен 1024 символами
+  fd.append('caption', caption.slice(0, 1024));
+
+  const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`, {
+    method: 'POST',
+    body: fd,
+  });
+  return res.ok;
+}
+
+/* ═══════════════════ ЭКРАН ОЖИДАНИЯ ═══════════════════ */
+let waitInterval = null;
+
+function renderStatus(ticket) {
+  $('#viewForm').classList.add('hidden');
+
+  const status = $('#viewStatus');
+  status.classList.remove('hidden');
+  status.classList.add('animate-floatUp');
+
+  $('#queueNumber').textContent = '#' + ticket.queueNumber;
+  $('#statusChannel').textContent = ticket.channel;
+
+  // Плашка антиспама
+  const left = ticket.time + COOLDOWN_MS - Date.now();
+  const hoursLeft = Math.max(0, Math.ceil(left / 3600e3));
+  $('#cooldownNote').textContent =
+    `Вы уже задали вопрос. Следующий можно задать через ${hoursLeft} ч.`;
+
+  updateWaitBox(ticket);
+  clearInterval(waitInterval);
+  waitInterval = setInterval(() => updateWaitBox(ticket), 30000); // обновление каждые 30 сек
+}
+
+function updateWaitBox(ticket) {
+  const waitTime = $('#waitTime');
+  const waitNote = $('#waitNote');
+
+  if (isNight()) {
+    waitTime.textContent = 'Эксперт восстанавливает ресурс 😴';
+    waitTime.className = 'mt-2 text-base font-bold text-white leading-snug';
+    waitNote.textContent = 'Ваша позиция сохранена! Ответ прилетит утром после 10:00';
+    return;
+  }
+
+  // Дневной режим: ~12 минут на каждого, кто стоит перед пользователем
+  const peopleAhead = Math.max(0, ticket.queueNumber - 1);
+  const elapsedMin  = Math.floor((Date.now() - ticket.time) / 60000);
+  const totalMin    = Math.max(1, peopleAhead * MIN_PER_PERSON - elapsedMin);
+
+  const h = Math.floor(totalMin / 60);
+  const m = totalMin % 60;
+
+  waitTime.textContent = h > 0 ? `~ ${h} ч ${m} мин` : `~ ${m} мин`;
+  waitTime.className = 'mt-2 text-2xl font-bold text-white tabular-nums';
+  waitNote.textContent = peopleAhead
+    ? `Перед вами ${peopleAhead} чел. · примерно ${MIN_PER_PERSON} мин на разбор`
+    : 'Вы следующий — эксперт уже смотрит ваш вопрос';
+}
+
+/* Аккордеон «Пройти без очереди» */
+$('#fastpassToggle').addEventListener('click', () => {
+  const body = $('#fastpassBody');
+  const open = body.classList.toggle('hidden') === false;
+  $('#fastpassChevron').style.transform = open ? 'rotate(180deg)' : '';
+});
+
+/* ═══════════════════ ОТПРАВКА ФОРМЫ ═══════════════════ */
+$('#questionForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  hideError();
+
+  const name     = $('#fName').value.trim();
+  const contact  = $('#fContact').value.trim();
+  const question = questionField.value.trim();
+
+  // — Валидация —
+  if (name.length < 2)      return showError('Укажите ваше имя.');
+  if (contact.length < 4)   return showError('Укажите контакт для связи.');
+  if (selectedChannel === 'Telegram' && !contact.startsWith('@'))
+    return showError('Telegram-контакт должен начинаться с @.');
+  if (selectedChannel === 'WhatsApp' && !/[\d]{7,}/.test(contact.replace(/\D/g, '')))
+    return showError('Укажите корректный номер WhatsApp.');
+  if (question.length < 15) return showError('Опишите вопрос подробнее — минимум 15 символов.');
+
+  // — Антиспам —
+  const last = LS.get('last_question_time');
+  if (last && Date.now() - last < COOLDOWN_MS) {
+    return showError('Вы уже задавали вопрос сегодня. Следующий можно задать через ' +
+      Math.ceil((last + COOLDOWN_MS - Date.now()) / 3600e3) + ' ч.');
+  }
+
+  const btn = $('#submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Отправляем...';
+
+  const ticket = {
+    name, contact, question,
+    channel: selectedChannel,
+    queueNumber: currentQueueSize() + 1,
+    time: Date.now(),
+  };
+
+  try {
+    const text = buildAdminMessage(ticket);
+    if (selectedFile) {
+      const ok = await sendTelegramPhoto(selectedFile, text);
+      if (!ok) await sendTelegramMessage(text); // фолбэк, если фото не ушло
+    } else {
+      await sendTelegramMessage(text);
+    }
+  } catch (err) {
+    // Не блокируем пользователя из-за сетевой ошибки — заявка сохранена локально
+    console.error('Ошибка отправки в Telegram:', err);
+  }
+
+  // Сохраняем состояние
+  LS.set('last_question_time', ticket.time);
+  LS.set('current_ticket', ticket);
+
+  btn.disabled = false;
+  btn.textContent = 'Встать в очередь 🚀';
+
+  renderStatus(ticket);
+  $('#app').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+/* ═══════════════════ ИНИЦИАЛИЗАЦИЯ ═══════════════════ */
+(function init() {
+  $('#year').textContent = new Date().getFullYear();
+  setChannel('Telegram');
+  renderStats();
+  setInterval(renderStats, 60000); // обновление статистики раз в минуту
+
+  // Если пользователь уже в очереди (в пределах 24 ч) — сразу показываем статус
+  const last = LS.get('last_question_time');
+  const ticket = LS.get('current_ticket');
+  if (last && ticket && Date.now() - last < COOLDOWN_MS) {
+    renderStatus(ticket);
+  }
+
+  lucide.createIcons();
+})();
+</script>
+</body>
+</html>
