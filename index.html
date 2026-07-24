@@ -838,7 +838,7 @@ function openStatusView(ticket) {
 
   pollStatus(ticket);
   clearInterval(pollTimer);
-  pollTimer = setInterval(() => pollStatus(ticket), 30000);
+  pollTimer = setInterval(() => pollStatus(ticket), 15000);
 }
 
 /* Запрос актуальной позиции */
@@ -852,6 +852,9 @@ async function pollStatus(ticket) {
 
     ticket.position = data.position;
     LS.set('current_ticket', ticket);
+
+    // Пользователь запустил бота — блок с привязкой больше не нужен
+    if (data.bound) $('#bindBox').classList.add('hidden');
 
     $('#queueNumber').textContent = '#' + data.position;
     updateWaitBox(data.position, ticket.createdAt, data.priority);
