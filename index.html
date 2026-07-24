@@ -613,7 +613,11 @@ const BOT_USERNAME = 'aku_aiqueue_bot';
    ?dev=off  — выключить режим
    ?reset    — сбросить текущую заявку и вернуться к форме            */
 (function devMode() {
-  const params = new URLSearchParams(location.search);
+  // Параметры могут прийти как в ?query, так и после #hash — учитываем оба случая
+  const raw = location.search + '&' + (location.hash.includes('?')
+    ? location.hash.slice(location.hash.indexOf('?') + 1)
+    : '');
+  const params = new URLSearchParams(raw.replace(/^\?/, ''));
 
   if (params.has('dev')) {
     const key = params.get('dev');
@@ -1042,7 +1046,13 @@ $('#questionForm').addEventListener('submit', async (e) => {
     badge.title = 'Тест-режим: антиспам отключён. Выключить — добавь ?dev=off к адресу';
     badge.className =
       'fixed bottom-4 left-4 z-50 rounded-lg bg-amber-400 px-2.5 py-1 ' +
-      'text-xs font-black text-black shadow-lg';
+      'text-xs font-black text-black shadow-lg cursor-pointer';
+    badge.addEventListener('click', () => {
+      LS.del('current_ticket');
+      LS.del('last_question_time');
+      location.reload();
+    });
+    badge.title = 'Тест-режим. Клик — сбросить заявку и вернуться к форме';
     document.body.appendChild(badge);
   }
 
