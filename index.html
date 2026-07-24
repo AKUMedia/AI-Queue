@@ -606,6 +606,36 @@ const API_BASE = 'https://ai-queue-api.vercel.app';
 /* Юзернейм бота — по этой ссылке пользователь привязывает заявку к своему Telegram */
 const BOT_USERNAME = 'aku_aiqueue_bot';
 
+/* ─── Режим тестирования (только для владельца) ───
+   Открой сайт с ?dev=КЛЮЧ — ключ сохранится в браузере и будет сниматься
+   ограничение «один вопрос в сутки». Ключ должен совпадать с переменной
+   ADMIN_BYPASS_KEY на Vercel.
+   ?dev=off  — выключить режим
+   ?reset    — сбросить текущую заявку и вернуться к форме            */
+(function devMode() {
+  const params = new URLSearchParams(location.search);
+
+  if (params.has('dev')) {
+    const key = params.get('dev');
+    if (key === 'off') localStorage.removeItem('dev_key');
+    else localStorage.setItem('dev_key', JSON.stringify(key));
+  }
+
+  if (params.has('reset')) {
+    localStorage.removeItem('current_ticket');
+    localStorage.removeItem('last_question_time');
+  }
+
+  // Убираем параметры из адресной строки, чтобы ключ не светился
+  if (params.has('dev') || params.has('reset')) {
+    history.replaceState(null, '', location.pathname);
+  }
+})();
+
+const DEV_KEY = (() => {
+  try { return JSON.parse(localStorage.getItem('dev_key')); } catch { return null; }
+})();
+
 const MIN_PER_PERSON = 12;              // минут на разбор одного человека
 const COOLDOWN_MS    = 24 * 60 * 60e3;  // антиспам (дублируется на сервере)
 
@@ -953,6 +983,7 @@ $('#questionForm').addEventListener('submit', async (e) => {
         contact,
         question,
         screenshot_path: screenshotPath,
+        ...(DEV_KEY ? { bypass: DEV_KEY } : {}),
       }),
     });
 
@@ -1002,6 +1033,17 @@ $('#questionForm').addEventListener('submit', async (e) => {
     openStatusView(ticket);
   } else if (ticket) {
     LS.del('current_ticket');
+  }
+
+  // Индикатор тест-режима, чтобы не забыть его выключить
+  if (DEV_KEY) {
+    const badge = document.createElement('div');
+    badge.textContent = 'DEV';
+    badge.title = 'Тест-режим: антиспам отключён. Выключить — добавь ?dev=off к адресу';
+    badge.className =
+      'fixed bottom-4 left-4 z-50 rounded-lg bg-amber-400 px-2.5 py-1 ' +
+      'text-xs font-black text-black shadow-lg';
+    document.body.appendChild(badge);
   }
 
   lucide.createIcons();
