@@ -291,6 +291,25 @@
         <div id="waitNote" class="mt-1.5 text-xs text-slate-500"></div>
       </div>
 
+      <!-- Привязка к боту — без неё ответ не дойдёт автоматически -->
+      <div id="bindBox" class="hidden mt-6 rounded-2xl border border-neon/30 bg-neon/[0.07] p-5 text-left">
+        <div class="flex items-start gap-3">
+          <i data-lucide="triangle-alert" class="w-5 h-5 text-neon shrink-0 mt-0.5"></i>
+          <div>
+            <h3 class="font-bold text-white">Остался один шаг</h3>
+            <p class="mt-1.5 text-sm text-slate-400 leading-relaxed">
+              Нажмите кнопку и запустите бота — иначе Telegram не даст доставить вам разбор.
+              Это займёт секунду.
+            </p>
+          </div>
+        </div>
+        <a id="bindLink" href="#" target="_blank" rel="noopener"
+           class="glow mt-4 flex items-center justify-center gap-2 rounded-xl py-3.5 font-bold text-ink
+                  bg-gradient-to-r from-accent to-neon transition-all hover:-translate-y-0.5">
+          <i data-lucide="send" class="w-4 h-4"></i> Подтвердить заявку в боте
+        </a>
+      </div>
+
       <p class="mt-5 text-sm text-slate-400 flex items-center justify-center gap-2">
         <i data-lucide="bell-ring" class="w-4 h-4 text-neon"></i>
         Ответ с детальным разбором прилетит вам лично в <span id="statusChannel" class="text-white font-semibold">Telegram</span>
@@ -584,6 +603,9 @@
 
 const API_BASE = 'https://ai-queue-api.vercel.app';
 
+/* Юзернейм бота — по этой ссылке пользователь привязывает заявку к своему Telegram */
+const BOT_USERNAME = 'aku_aiqueue_bot';
+
 const MIN_PER_PERSON = 12;              // минут на разбор одного человека
 const COOLDOWN_MS    = 24 * 60 * 60e3;  // антиспам (дублируется на сервере)
 
@@ -799,6 +821,16 @@ function openStatusView(ticket) {
   $('#statusChannel').textContent = ticket.channel;
   $('#queueNumber').textContent = '#' + (ticket.position ?? '—');
   updateWaitBox(ticket.position, ticket.createdAt);
+
+  // Для Telegram показываем кнопку привязки к боту.
+  // Без запуска бота Telegram не позволит отправить пользователю ответ.
+  const bind = $('#bindBox');
+  if (ticket.channel === 'Telegram') {
+    $('#bindLink').href = `https://t.me/${BOT_USERNAME}?start=${ticket.token}`;
+    bind.classList.remove('hidden');
+  } else {
+    bind.classList.add('hidden');
+  }
 
   const left = ticket.createdAt + COOLDOWN_MS - Date.now();
   $('#cooldownNote').textContent =
