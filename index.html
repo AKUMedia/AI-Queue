@@ -400,61 +400,61 @@
     </div>
   </section>
 
-  <!-- ══════════════════ ЛИСТ ОЖИДАНИЯ ОБУЧЕНИЯ ══════════════════ -->
+  <!-- ══════════════════ ОБУЧЕНИЕ (AKU Training) ══════════════════ -->
   <section class="mt-14">
-    <div class="relative overflow-hidden rounded-2xl border border-white/10 bg-panel p-6 sm:p-10">
-      <div class="absolute -top-28 -right-20 w-80 h-80 rounded-full bg-accent/25 blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-32 -left-24 w-80 h-80 rounded-full bg-neon/15 blur-3xl pointer-events-none"></div>
+    <div class="relative overflow-hidden rounded-2xl border p-6 sm:p-10 text-center"
+         style="border-color:rgba(200,248,0,.25); background:#16181E">
+      <div class="absolute -top-28 left-1/2 -translate-x-1/2 w-[30rem] h-80 rounded-full blur-3xl pointer-events-none"
+           style="background:rgba(200,248,0,.16)"></div>
 
       <div class="relative">
-        <span class="inline-flex items-center gap-2 rounded-full border border-neon/30 bg-neon/10 px-3 py-1 text-xs font-semibold text-neon">
-          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> Скоро старт
+        <span class="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-bold uppercase tracking-wider mb-6"
+              style="background:rgba(200,248,0,.12); border:1px solid rgba(200,248,0,.35); color:#C8F800">
+          <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i> AKU Training
         </span>
 
-        <h2 class="mt-4 text-2xl sm:text-4xl font-black text-white leading-[1.15] max-w-3xl">
-          Один вопрос решает одну задачу.<br class="hidden sm:block" />
-          <span class="grad-text">Обучение решает все следующие.</span>
+        <h2 class="text-2xl sm:text-4xl font-black text-white leading-[1.15] max-w-3xl mx-auto">
+          Один разбор решает вопрос.<br class="hidden sm:block" />
+          <span style="color:#C8F800">Обучение делает тебя тем, кто отвечает.</span>
         </h2>
 
-        <p class="mt-4 text-slate-400 text-[15px] sm:text-base leading-relaxed max-w-2xl">
-          Разбор в очереди закроет твой текущий затык. Но через неделю появится новый — и снова придётся ждать.
-          Фундаментальное обучение по ИИ переводит тебя на другой уровень: ты перестаёшь спрашивать
-          «а как это сделать?» и начинаешь собирать решения сам, под любую задачу.
+        <p class="mt-5 text-slate-400 text-[15px] sm:text-base leading-relaxed max-w-2xl mx-auto">
+          Очередь закроет твой текущий затык. Но чтобы перестать спрашивать и начать собирать
+          решения самому — под любые задачи, а то и на этом зарабатывать — нужна система.
+          В AKU Training я собрал весь путь: от первых промптов до своих ИИ-агентов и автоматизаций.
         </p>
 
-        <!-- Что меняется -->
-        <div class="mt-7 grid sm:grid-cols-3 gap-3">
+        <!-- три буллета -->
+        <div class="mt-8 grid sm:grid-cols-3 gap-3 max-w-3xl mx-auto text-left">
           <div class="rounded-xl border border-white/10 bg-ink p-4">
-            <i data-lucide="wand-sparkles" class="w-5 h-5 text-neon"></i>
-            <h3 class="mt-3 font-bold text-white text-sm">Промптинг уровня «инженер»</h3>
+            <i data-lucide="wand-sparkles" class="w-5 h-5" style="color:#C8F800"></i>
+            <h3 class="mt-3 font-bold text-white text-sm">С нуля до уверенности</h3>
             <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">
-              Модель делает то, что нужно, с первого раза — а не после десятого переписывания.
+              Пошагово, без прошлого опыта — от «боюсь нейросети» до рабочих связок.
             </p>
           </div>
           <div class="rounded-xl border border-white/10 bg-ink p-4">
-            <i data-lucide="bot" class="w-5 h-5 text-neon"></i>
+            <i data-lucide="bot" class="w-5 h-5" style="color:#C8F800"></i>
             <h3 class="mt-3 font-bold text-white text-sm">Свои ИИ-агенты</h3>
             <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">
-              Рутина, которая раньше съедала день, работает без тебя и по расписанию.
+              Рутина работает без тебя. Собираешь помощников под конкретные задачи.
             </p>
           </div>
           <div class="rounded-xl border border-white/10 bg-ink p-4">
-            <i data-lucide="trending-up" class="w-5 h-5 text-neon"></i>
-            <h3 class="mt-3 font-bold text-white text-sm">ИИ как источник дохода</h3>
+            <i data-lucide="trending-up" class="w-5 h-5" style="color:#C8F800"></i>
+            <h3 class="mt-3 font-bold text-white text-sm">Навык, который платит</h3>
             <p class="mt-1.5 text-xs text-slate-500 leading-relaxed">
-              Навык, который продаётся: свои проекты или заказы на автоматизацию.
+              Свои проекты или заказы на автоматизацию — ИИ как источник дохода.
             </p>
           </div>
         </div>
 
-        <a href="https://t.me/AKUTraining_bot" target="_blank" rel="noopener"
-           class="glow mt-8 inline-flex items-center gap-2 rounded-xl px-6 py-3.5 font-bold text-ink
-                  bg-gradient-to-r from-accent to-neon transition-all hover:-translate-y-0.5">
-          Записаться в лист ожидания <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <a href="https://akumedia.github.io/AKU-Training/" target="_blank" rel="noopener"
+           class="mt-9 inline-flex items-center gap-2 rounded-xl px-7 py-4 font-extrabold text-ink text-base transition-all duration-300 hover:-translate-y-0.5"
+           style="background:#C8F800; box-shadow:0 10px 40px -10px rgba(200,248,0,.7)">
+          Перейти к обучению <i data-lucide="arrow-right" class="w-5 h-5"></i>
         </a>
-        <p class="mt-3 text-xs text-slate-500">
-          Участники листа получают доступ первыми и по стартовой цене.
-        </p>
+        <p class="mt-3 text-xs text-slate-500">Стартовый поток — по специальной цене для первых участников.</p>
       </div>
     </div>
   </section>
@@ -540,33 +540,6 @@
     </div>
   </section>
 
-  <!-- ══════════════════ TELEGRAM-КАНАЛ (финальный CTA) ══════════════════ -->
-  <section class="mt-14">
-    <div class="relative overflow-hidden rounded-2xl border border-neon/20 bg-panel p-6 sm:p-10 text-center">
-      <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[28rem] h-72 rounded-full bg-accent/20 blur-3xl pointer-events-none"></div>
-
-      <div class="relative">
-        <span class="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-accent to-neon grid place-items-center shadow-lg shadow-accent/30">
-          <i data-lucide="send" class="w-7 h-7 text-ink"></i>
-        </span>
-
-        <h2 class="mt-5 text-2xl sm:text-3xl font-black text-white leading-tight">
-          Весь остальной ИИ — <span class="grad-text">в моём Telegram-канале</span>
-        </h2>
-
-        <p class="mt-4 text-slate-400 text-[15px] leading-relaxed max-w-2xl mx-auto">
-          Я выкладываю там разборы нейросетей, рабочие промпты, кейсы автоматизации и всё, что реально
-          экономит время и деньги — бесплатно и без воды. Подписывайся, чтобы не пропустить.
-        </p>
-
-        <a href="https://t.me/Alekseii_AI" target="_blank" rel="noopener"
-           class="glow mt-7 inline-flex items-center gap-2 rounded-xl px-6 py-3.5 font-bold text-ink
-                  bg-gradient-to-r from-accent to-neon transition-all duration-300 hover:-translate-y-0.5">
-          <i data-lucide="send" class="w-4 h-4"></i> Подписаться на канал
-        </a>
-      </div>
-    </div>
-  </section>
 </main>
 
 <!-- ══════════════════ FOOTER ══════════════════ -->
